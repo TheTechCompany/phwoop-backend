@@ -1,8 +1,16 @@
 const express = require('express')
+const cors = require('cors')
+const bodyParser = require('body-parser')
 const router = express.Router();
 const { Model, ModelCollection } = require('../models')
 
 module.exports = (db) => {
+  router.use(cors({origin: [
+    "http://localhost:3000",
+    "https://models.phwoop.com"
+  ]}))
+  router.use(bodyParser.json())
+
   router.get('/collections', (req, res) => {
     ModelCollection.find((err, models) => {
       res.send(models)
