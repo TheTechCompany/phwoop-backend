@@ -13,7 +13,7 @@ module.exports = (db) => {
 
   router.get('/collections', (req, res) => {
     ModelCollection.find((err, models) => {
-      res.send(models)
+      res.send((err) ? {error: err} : models)
     })
   })
 
