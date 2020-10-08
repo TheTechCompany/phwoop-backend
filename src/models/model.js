@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const modelCollection = new mongoose.schema({
+const modelCollection = new mongoose.Schema({
   name: String,
   ipfs: String,
   tags: [String],

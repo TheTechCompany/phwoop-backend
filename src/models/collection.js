@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema;
 
-const modelCollection = new mongoose.schema({
+const modelCollection = new mongoose.Schema({
   name: String,
   items: [{type: Schema.Types.ObjectId, ref: 'Model'}]
 }, {
