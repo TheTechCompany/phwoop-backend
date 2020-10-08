@@ -18,7 +18,13 @@ module.exports = (db) => {
   })
 
   router.post('/collections', (req, res) => {
+    let modelCollection = new ModelCollection({
+      name: req.body.name
+    })
 
+    modelCollection.save((err, collection) => {
+      res.send((err) ? {error: err} : collection)
+    })
   })
 
   router.get('/collection/:id', (req, res) => {
