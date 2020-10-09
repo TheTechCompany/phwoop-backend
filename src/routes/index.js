@@ -80,7 +80,7 @@ module.exports = (db) => {
   
   router.route('/prefabs')
     .post((req, res) => {
-      let prefab = new Prefabs({
+      let prefab = new Prefab({
         name: moniker.choose(),
         components: [],
         locations: []
@@ -90,14 +90,14 @@ module.exports = (db) => {
       })
     })
     .get((req, res) => {
-      Prefabs.find().populate('models').exec((err, prefabs) => {
+      Prefab.find().populate('models').exec((err, prefabs) => {
         res.send((err) ? {error: err} : prefabs)
       })
     })
 
   router.route('/prefabs/:id')
     .post((req, res) => {
-      Prefabs.findById(req.params.id, (err, prefab) => {
+      Prefab.findById(req.params.id, (err, prefab) => {
         let components = prefab.components;
         let locations = prefab.locations;
 
@@ -113,7 +113,7 @@ module.exports = (db) => {
           position: req.body.position
         })
 
-        Prefabs.updateOne({_id: req.params.id}, {
+        Prefab.updateOne({_id: req.params.id}, {
           components:components,
           locations: locations
         }, (err) => {
