@@ -8,7 +8,7 @@ const { World, Prefab, Model, ModelCollection } = require('../models')
 module.exports = (db) => {
   router.use(cors({origin: [
     "http://localhost:8081",
-    "https://vr.phwoop.com",
+    "https://game.phwoop.com",
     "http://localhost:3000",
     "https://models.phwoop.com"
   ]}))
