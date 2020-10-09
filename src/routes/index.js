@@ -121,6 +121,11 @@ module.exports = (db) => {
         })
       })
     })
+    .get((req, res) => {
+      Prefab.findById(req.params.id).populate('components').exec((err, prefab) => {
+        res.send((err) ? {error: err} : prefab)
+      })
+    })
 
   router.route('/worlds')
     .post((req, res) => {
