@@ -101,9 +101,9 @@ module.exports = (db) => {
         let components = prefab.components;
         let locations = prefab.locations;
 
-        if(components.indexOf(req.params.id) < 0) components.push(req.params.id)
+        if(components.indexOf(req.body.model) < 0) components.push(req.body.model)
         locations.push({
-          model: req.params.id,
+          model: req.body.model,
           scaling: {
             x: req.body.scaling,
             y: req.body.scaling,
