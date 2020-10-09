@@ -3,7 +3,7 @@ const moniker = require('moniker')
 const cors = require('cors')
 const bodyParser = require('body-parser')
 const router = express.Router();
-const { Model, ModelCollection } = require('../models')
+const { World, Prefab, Model, ModelCollection } = require('../models')
 
 module.exports = (db) => {
   router.use(cors({origin: [
@@ -77,6 +77,57 @@ module.exports = (db) => {
       res.send((err) ? {error: err} : _model)
     })
     })
+  
+  router.route('/prefabs')
+    .post((req, res) => {
+      let prefab = new Prefabs({
+        name: moniker.choose(),
+        components: [],
+        locations: []
+      })
+      prefab.save((err, _p) => {
+        res.send((err) ? {error : err}: _p)
+      })
+    })
+    .get((req, res) => {
+      Prefabs.find().populate('models').exec((err, prefabs) => {
+        res.send((err) ? {error: err} : prefabs)
+      })
+    })
 
+  router.route('/prefabs/:id')
+    .post((req, res) => {
+      Prefabs.findById(req.params.id, (err, prefab) => {
+        let components = prefab.components;
+        let locations = prefab.locations;
+
+        if(components.indexOf(req.params.id) < 0) components.push(req.params.id)
+        locations.push({
+          model: req.params.id,
+          scaling: {
+            x: req.body.scaling,
+            y: req.body.scaling,
+            z: req.body.scaling
+          },
+          rotation: req.body.rotation,
+          position: req.body.position
+        })
+
+        Prefabs.updateOne({_id: req.params.id}, {
+          components:components,
+          locations: 
+        }, (err) => {
+          res.send((err) ? {error: err}: {success: true})
+        })
+      })
+    })
+
+  router.route('/worlds')
+    .post((req, res) => {
+
+    })
+    .get((req, res) => {
+
+    })
   return router;
 }
