@@ -115,7 +115,7 @@ module.exports = (db) => {
 
         Prefabs.updateOne({_id: req.params.id}, {
           components:components,
-          locations: 
+          locations: locations
         }, (err) => {
           res.send((err) ? {error: err}: {success: true})
         })
