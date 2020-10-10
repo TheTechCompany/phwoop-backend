@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 const prefab = new mongoose.Schema({
   name: String,
   components: [{type: Schema.Types.ObjectId, ref: 'Model'}],
+  lights: Array,
   locations: [{
     model: String,
     scaling: {

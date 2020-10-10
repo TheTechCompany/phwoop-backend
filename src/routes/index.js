@@ -127,6 +127,21 @@ module.exports = (db) => {
       })
     })
 
+  router.route('/prefabs/:id/lights')
+    .post((req, res) => {
+      Prefab.findById(req.params.id, (err, prefab) => {
+        let lights = prefab.lights || [];
+        lights.push({
+          color: req.body.color,
+          intensity: req.body.intensity,
+          position: req.body.position
+        })
+        Prefab.updateOne({_id: req.params.id}, {lights: lights}, (err) => {
+          res.send((err) ? {error: err} : {success: true})
+        })
+      })
+    })
+
   router.route('/worlds')
     .post((req, res) => {
 
