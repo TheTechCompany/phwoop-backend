@@ -20,9 +20,11 @@ module.exports = (db) => {
     })
   })
 
-  router.post('/collections', (req, res) => {
+  router.route('/collections/:type')
+    .post((req, res) => {
     let modelCollection = new ModelCollection({
       name: req.body.name,
+      type: req.params.type,
       items: [],
       moniker: moniker.choose()
     })
@@ -31,8 +33,13 @@ module.exports = (db) => {
       res.send((err) ? {error: err} : collection)
     })
   })
+    .get((req, res) => {
+      ModelCollection.find({type: req.params.type}).populate('items').exec((err, models) => {
+        res.send((err) ? {error: err} : models)
+      })
+    })
 
-  router.route('/collections/:id')
+  router.route('/collections/id/:id')
     .get((req, res) => {
       ModelCollection.findById(req.params.id).populate('items').exec((err, collection) => {
         res.send((err) ? {error: err} : collection)

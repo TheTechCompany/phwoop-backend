@@ -12,6 +12,8 @@
     "ipfs-http-client": "^47.0.1",
     "mongodb": "^3.6.2",
     "mongoose": "^5.10.8",
-    "moniker": "^0.1.2"
+    "moniker": "^0.1.2",
+    "multiaddr": "^8.0.0",
+    "uuid": "^8.3.1"
   }
 }
