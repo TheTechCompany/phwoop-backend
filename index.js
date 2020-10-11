@@ -10,8 +10,9 @@ mongoose.connect('mongodb://localhost/phwoop')
 const db = mongoose.connection;
 
 db.on('error', console.error.bind(console, 'connection error: '))
-let storage = new StorageLayer(() => {
   db.once('open', () => {
+    let storage = StorageLayer(() => {
+    console.log("Storage Layer open")
     app.use(routes(db, storage))
 
     greenlock.init({

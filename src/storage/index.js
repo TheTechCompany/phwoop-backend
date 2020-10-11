@@ -16,7 +16,7 @@ class StorageLayer{
     this.version = await this.node.version()
 
     console.log('IPFS Version: ', this.version.version)
-    cb(this)
+    cb()
   }
   
   lsPins(){
@@ -55,5 +55,7 @@ class StorageLayer{
   }
 }
 
-module.exports = StorageLayer;
+module.exports = (cb) => {
+  return new StorageLayer(cb)
+}
 
