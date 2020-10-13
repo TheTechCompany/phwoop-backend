@@ -67,6 +67,13 @@ module.exports = (db) => {
       })
     })
 
+  router.route('/models/:id')
+    .get((req, res) => {
+      Model.findById(req.params.id, (err, models) => {
+        res.send((err) ? {error: err} : models)
+      })
+    })
+
   router.route('/models')
     .get((req, res) => {
       Model.find((err, models) => {
