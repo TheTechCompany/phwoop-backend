@@ -73,6 +73,15 @@ module.exports = (db) => {
         res.send((err) ? {error: err} : models)
       })
     })
+    .put((req, res) => {
+      let update = {
+        name: req.body.name,
+        ipfs: req.body.ipfs
+      }
+      Model.updateOne({_id: req.params.id}, update, {omitUndefined: true}, (err) => {
+        res.send((err) ? {error: err} : {success: true})
+      })
+    })
 
   router.route('/models')
     .get((req, res) => {
